@@ -1,6 +1,10 @@
 #inspection data locations based on column number
-#
-INSPECTED_SIZE=6
+#############################################################
+##########       COLUMNS START AT 0 - - - - -################
+#############################################################
+
+#Size already in PAVER, unsure where excel # comes from, Calculated in scratchXml by P_LENGTH*P_WIDTH
+INSPECTED_SIZE=5
 INSPECTED_DATE=17
 INSPECTED_PID1=2
 INSPECTED_PID2=0
@@ -8,9 +12,11 @@ DCOMMENT=57
 P_LENGTH=3
 P_WIDTH=4
 
+
+#WRONG COLUMN NUMBERS - PLACEHOLDERS
 SAMPLE_NUM=12
 DISTRESS_QUANTITY=13
-
+SURFACE_WEATHERING=14
 
 #distresscode data locations based on column
 #E= exctent, S= severity
@@ -22,7 +28,7 @@ ALLIGATOR_S=24
 POTHOLE_E=33
 POTHOLE_S=34
 #Paver doesn't allow import of PCI w/o distresses, calculates based on distresses,
-#probably unneeded
+#unneeded but tracked anyway 
 PCI_DISTRESS=55
 
 
@@ -31,6 +37,7 @@ PCI_DISTRESS=55
 #Unknown distress variables
 
 #add to inspectionClasses.py once determined
+#Columns double checked 2.9.20, probably unneeded given new data incoming
 #SWEI=20 #swell?
 #SWSI=21
 #RCEI=26 #radial cracking?

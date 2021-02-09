@@ -21,6 +21,7 @@ class Inspections:
 	pcidistress: str
 	plength: str
 	pwidth: str
+	sWeathering: str
 	
 
     #quantity
