@@ -31,7 +31,7 @@ alligator_Severity=severityConvert(row[ALLIGATOR_S])
 potHole_Severity=severityConvert(row[POTHOLE_S])
 
 
-
+print(sWeathering, sampleNumber, distressQuantity)
 
 
 # set spacing for indentation

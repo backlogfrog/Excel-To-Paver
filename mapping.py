@@ -1,6 +1,6 @@
 #inspection data locations based on column number
 #############################################################
-##########       COLUMNS START AT 0 - - - - -################
+##########       COLUMNS START AT 0 MOTHERFUCK ################
 #############################################################
 
 #Size already in PAVER, unsure where excel # comes from, Calculated in scratchXml by P_LENGTH*P_WIDTH

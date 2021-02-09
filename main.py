@@ -28,6 +28,21 @@ colorama.init(autoreset=True)
 #openpyxl package opens excel sheets
 from openpyxl import load_workbook
 
+
+
+##################################################################################
+##################################################################################
+##################################################################################
+#set start positions to read data: 2012.xlsx data starts at row 4
+RowIncr=4   ##################################################################################
+##################################################################################
+##################################################################################
+##################################################################################
+##################################################################################
+
+
+
+
 #import class info from inspectionClasses.py for inspection data and from mapping.py based on column to be printed to XML
 from inspectionClasses import Inspections
 from mapping import INSPECTED_SIZE, INSPECTED_DATE, INSPECTED_PID1, INSPECTED_PID2, DCOMMENT, ALLIGATOR_E, ALLIGATOR_S, POTHOLE_E, POTHOLE_S, PCI_DISTRESS, P_LENGTH, P_WIDTH, SAMPLE_NUM, DISTRESS_QUANTITY
@@ -66,10 +81,6 @@ while True:
 workbook = load_workbook(filename=db_name, data_only=True)
 workbook.sheetnames
 sheet = workbook.active
-
-
-#set start positions to read data: 2012.xlsx data starts at row 4
-RowIncr=4
 
 #set/show last row and column to avoid out of range error
 #LastRow=sheet.max_row
@@ -138,6 +149,7 @@ for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			product = Inspections(alligatorE=row[ALLIGATOR_E],
 					sampleNumber=row[SAMPLE_NUM],
 					distressQuantity=row[DISTRESS_QUANTITY],
+					sWeathering=row[SURFACE_WEATHERING]
 					alligatorS=row[ALLIGATOR_S],
                     size=row[INSPECTED_SIZE],
                     idate=[INSPECTED_DATE],
