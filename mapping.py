@@ -1,4 +1,5 @@
 #inspection data locations based on column number
+#
 INSPECTED_SIZE=6
 INSPECTED_DATE=17
 INSPECTED_PID1=2
@@ -6,6 +7,9 @@ INSPECTED_PID2=0
 DCOMMENT=57
 P_LENGTH=3
 P_WIDTH=4
+
+SAMPLE_NUM=12
+DISTRESS_QUANTITY=13
 
 
 #distresscode data locations based on column

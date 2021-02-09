@@ -7,6 +7,8 @@ from dataclasses import dataclass
 
 @dataclass
 class Inspections:
+	sampleNumber: str
+	distressQuantity: str
 	size: str
 	idate: str
 	pid1: str
@@ -19,6 +21,7 @@ class Inspections:
 	pcidistress: str
 	plength: str
 	pwidth: str
+	
 
     #quantity
 	#Unknown variables

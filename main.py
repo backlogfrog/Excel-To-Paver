@@ -30,7 +30,7 @@ from openpyxl import load_workbook
 
 #import class info from inspectionClasses.py for inspection data and from mapping.py based on column to be printed to XML
 from inspectionClasses import Inspections
-from mapping import INSPECTED_SIZE, INSPECTED_DATE, INSPECTED_PID1, INSPECTED_PID2, DCOMMENT, ALLIGATOR_E, ALLIGATOR_S, POTHOLE_E, POTHOLE_S, PCI_DISTRESS, P_LENGTH, P_WIDTH
+from mapping import INSPECTED_SIZE, INSPECTED_DATE, INSPECTED_PID1, INSPECTED_PID2, DCOMMENT, ALLIGATOR_E, ALLIGATOR_S, POTHOLE_E, POTHOLE_S, PCI_DISTRESS, P_LENGTH, P_WIDTH, SAMPLE_NUM, DISTRESS_QUANTITY
 
 #set header/schema for xml
 xml_header = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>"
@@ -136,6 +136,8 @@ for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 
 			#product is inspection data dictionary
 			product = Inspections(alligatorE=row[ALLIGATOR_E],
+					sampleNumber=row[SAMPLE_NUM],
+					distressQuantity=row[DISTRESS_QUANTITY],
 					alligatorS=row[ALLIGATOR_S],
                     size=row[INSPECTED_SIZE],
                     idate=[INSPECTED_DATE],

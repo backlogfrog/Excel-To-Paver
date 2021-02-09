@@ -6,8 +6,14 @@ DistressComment = "Imported"
 alligator_Severity = "NONE"
 potHole_Severity = "NONE"
 
+
+#sampleNum
+#distressQuantity
+
+
 #
 #check the severity of the distress and give Low Medium or High value
+#will probably need changing/uneccessary with new data. 
 def severityConvert(rowDataHere):
 	severityReal = "NONE"
 	if rowDataHere == 1:
@@ -56,7 +62,7 @@ inspectedSize=row[P_LENGTH]*row[P_WIDTH]
 
 
 print(iS, "<geospatialInspectionData inspectionDate=\"",parsed_date,"\"", " units=\"English\" level=\"FRAME\" >", sep="", file=f)
-print(iS*2, "<inspectedElement inspectedElementID=\"", row[INSPECTED_PID2], "\"", " size=\"", inspectedSize, "\" ", "PID=\"", fullpid, "\" inspectedType=\"R\" comment=\"","Imp: ", row[DCOMMENT],  "\" noDistresses=\"false\">",  sep="", file=f)
+print(iS*2, "<inspectedElement inspectedElementID=\"", row[INSPECTED_PID2], "\"", " size=\"", inspectedSize, "\" ", "PID=\"", fullpid, "\" inspectedType=\"R\" comment=\"","Imported: ", row[DCOMMENT],  "\" noDistresses=\"false\">",  sep="", file=f)
 
 
 #if row[ALLIGATOR_S] > 0 or row[POTHOLE_S] > 0:
