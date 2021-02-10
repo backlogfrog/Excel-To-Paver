@@ -28,13 +28,15 @@ colorama.init(autoreset=True)
 #openpyxl package opens excel sheets
 from openpyxl import load_workbook
 
-
+#NEW DATA HAS NO DATE - ANY DATE IN 2010 is first date
 
 ##################################################################################
 ##################################################################################
 ##################################################################################
 #set start positions to read data: 2012.xlsx data starts at row 4
-RowIncr=4   ##################################################################################
+#RowIncr=4
+RowIncr=2   
+##################################################################################
 ##################################################################################
 ##################################################################################
 ##################################################################################
@@ -45,7 +47,7 @@ RowIncr=4   ####################################################################
 
 #import class info from inspectionClasses.py for inspection data and from mapping.py based on column to be printed to XML
 from inspectionClasses import Inspections
-from mapping import INSPECTED_SIZE, INSPECTED_DATE, INSPECTED_PID1, INSPECTED_PID2, DCOMMENT, ALLIGATOR_E, ALLIGATOR_S, POTHOLE_E, POTHOLE_S, PCI_DISTRESS, P_LENGTH, P_WIDTH, SAMPLE_NUM, DISTRESS_QUANTITY, SURFACE_WEATHERING
+from mapping import INSPECTED_SIZE, INSPECTED_DATE, INSPECTED_PID1, INSPECTED_PID2, DCOMMENT, PCI_DISTRESS, P_LENGTH, P_WIDTH 
 
 #set header/schema for xml
 xml_header = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>"
@@ -146,29 +148,29 @@ for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 
 
 			#product is inspection data dictionary, unneeded at this time
-			product = Inspections(alligatorE=row[ALLIGATOR_E],
-					sampleNumber=row[SAMPLE_NUM],
-					distressQuantity=row[DISTRESS_QUANTITY],
-					sWeathering=row[SURFACE_WEATHERING],
-					alligatorS=row[ALLIGATOR_S],
-                    size=row[INSPECTED_SIZE],
-                    idate=[INSPECTED_DATE],
-                    pid1=row[INSPECTED_PID1],
-					pid2=row[INSPECTED_PID2],
-					comment=row[DCOMMENT],
-					potholeE=row[POTHOLE_E],
-					potholeS=row[POTHOLE_S],
-					pcidistress=row[PCI_DISTRESS],
-					plength=row[P_LENGTH],
-					pwidth=row[P_WIDTH])
-			print(row[SURFACE_WEATHERING], row[SAMPLE_NUM], row[DISTRESS_QUANTITY])
+			#product = Inspections(alligatorE=row[ALLIGATOR_E],
+			#		sampleNumber=row[SAMPLE_NUM],
+			#		distressQuantity=row[DISTRESS_QUANTITY],
+			#		sWeathering=row[SURFACE_WEATHERING],
+			#		alligatorS=row[ALLIGATOR_S],
+    	     #      size=row[INSPECTED_SIZE],
+           #	    idate=[INSPECTED_DATE],
+             # 		pid1=row[INSPECTED_PID1],
+				#	pid2=row[INSPECTED_PID2],
+				#	comment="IMPORTED",
+				#	potholeE=row[POTHOLE_E],
+			#		potholeS=row[POTHOLE_S],
+			#		pcidistress=row[PCI_DISTRESS],
+			#		plength=row[P_LENGTH],
+			#		pwidth=row[P_WIDTH])
+			#print(row[SURFACE_WEATHERING], row[SAMPLE_NUM], row[DISTRESS_QUANTITY])
 			#update rowsRead for each iteration
 			rowsRead=rowsRead+1
 			#write to file with the info
 			exec(open("scratchXml.py").read())
 			products.append(product)
 
-print (Fore.RED + "Need Quality, additional distress variables defined \n \n")
+print (Fore.RED + "FIRST SS IS IN 2010 - NO SET DATE \n \n")
 print(Fore.MAGENTA + str(rowsRead) + " rows read \n")			
 #close xml main tag and workbook
 print("</pavementData>", sep="", file=f)

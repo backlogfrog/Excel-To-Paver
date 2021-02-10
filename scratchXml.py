@@ -46,8 +46,13 @@ fullpid="WINFIELD::" + address + "::" + str(row[INSPECTED_PID2])
 
 
 #set date to proper format
-spread_date = row[INSPECTED_DATE]
-parsed_date = datetime.strftime(spread_date, "%m/%d/%Y")
+
+#spread_date = row[INSPECTED_DATE]
+#parsed_date = datetime.strftime(spread_date, "%m/%d/%Y")
+
+#temporary date needed due to date change and not present in excel
+#or set dateSet=parsed_date to pull a proper parsed date from spreadsheet
+dateSet="01/01/2010"
 
 
 #print(xml_header, "\n", xml_schema, "\n", file=f) and opening xml tags
@@ -60,8 +65,8 @@ inspectedSize=row[P_LENGTH]*row[P_WIDTH]
 
 
 
-print(iS, "<geospatialInspectionData inspectionDate=\"",parsed_date,"\"", " units=\"English\" level=\"FRAME\" >", sep="", file=f)
-print(iS*2, "<inspectedElement inspectedElementID=\"", row[INSPECTED_PID2], "\"", " size=\"", inspectedSize, "\" ", "PID=\"", fullpid, "\" inspectedType=\"R\" comment=\"","Imported: ", row[DCOMMENT],  "\" noDistresses=\"false\">",  sep="", file=f)
+print(iS, "<geospatialInspectionData inspectionDate=\"",dateSet,"\"", " units=\"English\" level=\"FRAME\" >", sep="", file=f)
+print(iS*2, "<inspectedElement inspectedElementID=\"", row[INSPECTED_PID2], "\"", " size=\"", inspectedSize, "\" ", "PID=\"", fullpid, "\" inspectedType=\"R\" comment=\"",DistressComment,  "\" noDistresses=\"false\">",  sep="", file=f)
 
 
 #if row[ALLIGATOR_S] > 0 or row[POTHOLE_S] > 0:
@@ -101,7 +106,7 @@ print(iS, "</geospatialInspectionData>", sep="", file=f)
 #possibly unneeded, Paver seems to calculate simply based on distresses.
 #unpaved roads will show PQI of "0," rating the road failed
 if row[PCI_DISTRESS] > 0:
-			print (iS, "<geospatialInspectionData level=\"SECTION\" units=\"English\" inspectionDate=\"", parsed_date, "\" >", sep="", file=f)
+			print (iS, "<geospatialInspectionData level=\"SECTION\" units=\"English\" inspectionDate=\"", dateSet, "\" >", sep="", file=f)
 			print (iS*2, "<inspectedConditions PID=\"", fullpid, "\" >", sep="", file=f)
 			print (iS*3, "<conditions>", sep="", file=f)
 			print (iS*4, "<levelCondition comment=\"\" source=\"\" cndMeasureUID=\"StructPCI\" cndMeasure=\"SCI\" conditionText=\"\" condition=\"", row[PCI_DISTRESS], "\"/>", sep="", file=f)
