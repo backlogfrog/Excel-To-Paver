@@ -125,14 +125,15 @@ distressCodes = {
 distressCheck = []
 distressCheck += distressCodes.values()
 print (distressCheck)
-print (row[INSPECTED_PID2])
+
 
 
 
 
 #Function for printing distress to file
 def distressPrint(code, severity, quantity):
-	print (iS*6, "<levelDistress distressCode=\"", code, "\"", "severity=\"", severity, "\" quantity=\"", quantity, "\"", "comment=\"", DistressComment, "\" />", sep="", file=f)
+	if float(code) > 0:
+		print (iS*6, "<levelDistress distressCode=\"", code, "\"", "severity=\"", severity, "\" quantity=\"", quantity, "\"", "comment=\"", DistressComment, "\" />", sep="", file=f)
 
 
 
