@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pavementData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="PavementInspectionDataV2.xsd">
+  <geospatialInspectionData inspectionDate="11/19/2012" units="English" level="FRAME" >
+    <inspectedElement inspectedElementID="2601" size="43424" PID="WINFIELD::E19THAVE::2601" inspectedType="R" comment="Imported: None" noDistresses="false">
+      <inspectionData>
+          <PCIDistresses>
+            <levelDistress distressCode="13" severity="NONE" quantity="2" comment="Imported" />
+          </PCIDistresses>
+      </inspectionData>
+    </inspectedElement>
+  </geospatialInspectionData>
+  <geospatialInspectionData level="SECTION" units="English" inspectionDate="11/19/2012" >
+    <inspectedConditions PID="WINFIELD::E19THAVE::2601" >
+      <conditions>
+        <levelCondition comment="" source="" cndMeasureUID="StructPCI" cndMeasure="SCI" conditionText="" condition="85.5"/>
+      </conditions>
+    </inspectedConditions>
+  </geospatialInspectionData>
+  <geospatialInspectionData inspectionDate="11/20/2009" units="English" level="FRAME" >
+    <inspectedElement inspectedElementID="1401" size="47601" PID="WINFIELD::YAEGERDR::1401" inspectedType="R" comment="Imported: None" noDistresses="false">
+      <inspectionData>
+          <PCIDistresses>
+            <levelDistress distressCode="1" severity="H" quantity="2" comment="Imported" />
+            <levelDistress distressCode="13" severity="L" quantity="2" comment="Imported" />
+          </PCIDistresses>
+      </inspectionData>
+    </inspectedElement>
+  </geospatialInspectionData>
+  <geospatialInspectionData level="SECTION" units="English" inspectionDate="11/20/2009" >
+    <inspectedConditions PID="WINFIELD::YAEGERDR::1401" >
+      <conditions>
+        <levelCondition comment="" source="" cndMeasureUID="StructPCI" cndMeasure="SCI" conditionText="" condition="76"/>
+      </conditions>
+    </inspectedConditions>
+  </geospatialInspectionData>
+  <geospatialInspectionData inspectionDate="11/20/2009" units="English" level="FRAME" >
+    <inspectedElement inspectedElementID="1502" size="25452" PID="WINFIELD::ELWELLDR::1502" inspectedType="R" comment="Imported: None" noDistresses="false">
+      <inspectionData>
+          <PCIDistresses>
+            <levelDistress distressCode="1" severity="NONE" quantity="2" comment="Imported" />
+            <levelDistress distressCode="13" severity="NONE" quantity="2" comment="Imported" />
+          </PCIDistresses>
+      </inspectionData>
+    </inspectedElement>
+  </geospatialInspectionData>
+  <geospatialInspectionData level="SECTION" units="English" inspectionDate="11/20/2009" >
+    <inspectedConditions PID="WINFIELD::ELWELLDR::1502" >
+      <conditions>
+        <levelCondition comment="" source="" cndMeasureUID="StructPCI" cndMeasure="SCI" conditionText="" condition="89"/>
+      </conditions>
+    </inspectedConditions>
+  </geospatialInspectionData>
+</pavementData>

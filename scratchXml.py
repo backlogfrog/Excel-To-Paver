@@ -31,7 +31,7 @@ alligator_Severity=severityConvert(row[ALLIGATOR_S])
 potHole_Severity=severityConvert(row[POTHOLE_S])
 
 
-print(sWeathering, sampleNumber, distressQuantity)
+#print(sWeathering, sampleNumber, distressQuantity)
 
 
 # set spacing for indentation
@@ -43,10 +43,9 @@ address=address.replace(".","")
 address=address.upper()
 fullpid="WINFIELD::" + address + "::" + str(row[INSPECTED_PID2])
 
+
+
 #set date to proper format
-
-
-
 spread_date = row[INSPECTED_DATE]
 parsed_date = datetime.strftime(spread_date, "%m/%d/%Y")
 

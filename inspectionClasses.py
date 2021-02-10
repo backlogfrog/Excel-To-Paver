@@ -8,6 +8,7 @@ from dataclasses import dataclass
 @dataclass
 class Inspections:
 	sampleNumber: str
+	sWeathering: str
 	distressQuantity: str
 	size: str
 	idate: str
@@ -21,7 +22,7 @@ class Inspections:
 	pcidistress: str
 	plength: str
 	pwidth: str
-	sWeathering: str
+	
 	
 
     #quantity
