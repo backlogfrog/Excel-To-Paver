@@ -142,6 +142,7 @@ rowsRead=0
 for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			rowsRead=rowsRead+1
 			#write to file with the info
+			
 			exec(open("scratchXml.py").read())
 			
 

@@ -132,15 +132,7 @@ print (distressCheck)
 
 #Function for printing distress to file
 def distressPrint(code, severity, quantity):
-	try:
-		if code > 0:
-		
-			print (iS*6, "<levelDistress distressCode=\"", code, "\"", "severity=\"", severity, "\" quantity=\"", quantity, "\"", "comment=\"", DistressComment, "\" />", sep="", file=f)
-		else:
-			print ("ELSE")
-			
-	except TypeError:
-		print("TYPEERROR")
+	print (iS*6, "<levelDistress distressCode=\"", code, "\"", "severity=\"", severity, "\" quantity=\"", quantity, "\"", "comment=\"", DistressComment, "\" />", sep="", file=f)
 
 
 
