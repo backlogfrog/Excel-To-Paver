@@ -25,17 +25,18 @@ def severityConvert(rowDataHere):
 	print("severityConvert Testing", severityReal)
 	return severityReal
 
-
+iS="  "
+#unneeded @ this time, current sheet has L M H
 ######CALL severityConvert TO CONVERT # to L M H
-alligator_Severity=severityConvert(row[ALLIGATOR_S])
-potHole_Severity=severityConvert(row[POTHOLE_S])
+#alligator_Severity=severityConvert(row[ALLIGATOR_S])
+#potHole_Severity=severityConvert(row[POTHOLE_S])
 
 
 #print(sWeathering, sampleNumber, distressQuantity)
 
 
 # set spacing for indentation
-iS="  "
+
 
 #set pid without editing excel sheet to format NETWORK::STREET::PID#
 address=str(row[INSPECTED_PID1]).replace(" ","")
@@ -58,7 +59,7 @@ dateSet="01/01/2010"
 #print(xml_header, "\n", xml_schema, "\n", file=f) and opening xml tags
 
 #row[INSPECTED_SIZE]-- set actual square footage - excel sheet has different size
-inspectedSize=row[P_LENGTH]*row[P_WIDTH]
+#inspectedSize=row[P_LENGTH]*row[P_WIDTH]
 
 #manually write XML data to filename.xml
 #Changed comment to say Imp: for imported to identify
@@ -85,14 +86,67 @@ print("Alligator/Pothole Extent and severity: AES: ", row[ALLIGATOR_E],row[ALLIG
 
 
 
+#Set distress codes to dict, check to see if codes are > 0, then write
+distressCodes = {
+	'sweatherC': row[SWEATHERING_CODE],
+	'sweatherS': row[SWEATHERING_S],
+	'sweatherQ': row[SWEATHERING_Q],
+	'alligatorC': row[ALLIGATOR_CODE],
+	'alligatorS': row[ALLIGATOR_S],
+	'alligatorQ': row[ALLIGATOR_Q],
+	'blockcrackC': row[BLOCKCRACK_CODE],
+	'blockcrackS': row[BLOCKCRACK_S],
+	'blockcrackQ': row[BLOCKCRACK_Q],
+	'trasnverseC': row[TRANSVERSE__CODE],
+	'trasnverseS': row[TRANSVERSE_S],
+	'trasnverseQ': row[TRANSVERSE_Q],
+	'depressionC': row[DEPRESSION_CODE],
+	'depressionS': row[DEPRESSION_S],
+	'depressionQ': row[DEPRESSION_Q],
+	'potholeC': row[POTHOLE_CODE],
+	'potholeS': row[POTHOLE_S],
+	'potholeQ': row[POTHOLE_Q],
+	'edgecrackC': row[EDGECRACKING_CODE],
+	'edgecrackS': row[EDGECRACKING_S],
+	'edgecrackQ': row[EDGECRACKING_Q],
+	'jointspallC': row[JOINTSPALLINGG_CODE],
+	'jointspallS': row[JOINTSPALLINGG_S],
+	'jointspallQ': row[JOINTSPALLINGG_Q],
+	'durabilityC': row[DURABILITYCRACKING_CODE],
+	'durabilityS': row[DURABILITYCRACKING_S],
+	'durabilityQ': row[DURABILITYCRACKING_Q],
+	'faultC': row[FAULTING_CODE],
+	'faultS': row[FAULTING_S],
+	'faultQ': row[FAULTING_Q],
+	'patchingC': row[PATCHING_CODE],
+	'patchingS': row[PATCHING_S],
+	'patchingQ': row[PATCHING_Q],
+	'bumpsagC': row[BUMPSAG_CODE]
+	'bumpsagS': row[BUMPSAG_S]
+	'bumpsagQ': row[BUMPSAG_Q]
+}
 
-if row[ALLIGATOR_E] > 0 or row[POTHOLE_E] > 0:
-		#determine if distresses exist/are greater than 0
+distressCheck = []
+distressCheck += distressCodes.values()
+print (distressCheck)
+
+
+
+
+
+#Function for printing distress to file
+def distressPrint(code, severity, quantity):
+	try:
+		if code > 0:
+			print (iS*6, "<levelDistress distressCode=\"", code, "\"", "severity=\"", severity, "\" quantity=\"", quantity, "\"", "comment=\"", DistressComment, "\" />", sep="", file=f)
+	except TypeError:
+		print("TYPEERROR")
+
+
+#check if any codes are > 0 to skip empty lines
+if any([v > 0 for v in distressCheck]):
 		print (iS*5, "<PCIDistresses>", sep="", file=f)
-		if row[ALLIGATOR_E] > 0:
-			print (iS*6, "<levelDistress distressCode=\"1\" severity=\"", alligator_Severity, "\" quantity=\"2\" comment=\"", DistressComment, "\" />", sep="", file=f)
-		if row[POTHOLE_E] > 0:
-			print (iS*6, "<levelDistress distressCode=\"13\" severity=\"", potHole_Severity, "\" quantity=\"2\" comment=\"", DistressComment, "\" />", sep="", file=f)
+		distressPrint(distressCodes["sweatherC"],distressCodes["sweatherC"],distressCodes["sweatherC"])
 		print (iS*5, "</PCIDistresses>", sep="", file=f)
 
 

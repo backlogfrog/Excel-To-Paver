@@ -15,17 +15,12 @@ P_LENGTH=3
 P_WIDTH=4
 
 
-#WRONG COLUMN NUMBERS - PLACEHOLDERS
-
+SAMPLENUMBER=4
 
 #distresscode data locations based on column
 #E= exctent, S= severity
 #Severity: 1= low, 2=med, 3=high
 #Need quantity and other distresses
-
-
-
-SAMPLENUMBER=4
 
 SWEATHERING_CODE=5
 SWEATHERING_S=6
@@ -83,7 +78,7 @@ BUMPSAG_Q=40
 #unneeded but tracked anyway 
 
 #Surface Weathering #
-PCI_DISTRESS=5
+
 
 
 

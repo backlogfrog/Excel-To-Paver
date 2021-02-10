@@ -47,7 +47,7 @@ RowIncr=2
 
 #import class info from inspectionClasses.py for inspection data and from mapping.py based on column to be printed to XML
 from inspectionClasses import Inspections
-from mapping import INSPECTED_SIZE, INSPECTED_DATE, INSPECTED_PID1, INSPECTED_PID2, DCOMMENT, PCI_DISTRESS, P_LENGTH, P_WIDTH 
+from mapping import INSPECTED_SIZE, INSPECTED_DATE, INSPECTED_PID1, INSPECTED_PID2, DCOMMENT, PCI_DISTRESS, P_LENGTH, P_WIDTH, SAMPLENUMBER, SWEATHERING_CODE, SWEATHERING_S, SWEATHERING_Q, ALLIGATOR_CODE, ALLIGATOR_S, ALLIGATOR_Q, BLOCKCRACK_CODE, BLOCKCRACK_S, BLOCKCRACK_Q, TRANSVERSE__CODE, TRANSVERSE_S, TRANSVERSE_Q, DEPRESSION_CODE, DEPRESSION_S, DEPRESSION_Q, POTHOLE_CODE, POTHOLE_S, POTHOLE_Q, EDGECRACKING_CODE, EDGECRACKING_S, EDGECRACKING_Q, JOINTSPALLINGG_CODE, JOINTSPALLING_S, JOINTSPALLING_Q, DURABILITYCRACKING_CODE, DURABILITYCRACKING_S, DURABILITYCRACKING_Q, FAULTING_CODE, FAULTING_S, FAULTING_Q, PATCHING_CODE, PATCHING_S, PATCHING_Q, BUMPSAG_CODE, BUMPSAG_S, BUMPSAG_Q
 
 #set header/schema for xml
 xml_header = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>"
@@ -138,37 +138,12 @@ print(xml_header, "\n", xml_schema, sep="", file=f)
 #how many rows read/written
 rowsRead=0
 
-#create dictionary to be passed onto xml
-products = []
-# values only - runs through # of rows specified from inputStart.py/"RowIncr" start point to write onto XML file
+
 for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
-    	#turning date into expected readable format strf vs strp, unneeded if excel cell is not formatted to Date type -unneeded at this time
-			#spread_date = row[INSPECTED_DATE]
-			#parsed_date = datetime.strftime(spread_date, "%m/%d/%Y")
-
-
-			#product is inspection data dictionary, unneeded at this time
-			#product = Inspections(alligatorE=row[ALLIGATOR_E],
-			#		sampleNumber=row[SAMPLE_NUM],
-			#		distressQuantity=row[DISTRESS_QUANTITY],
-			#		sWeathering=row[SURFACE_WEATHERING],
-			#		alligatorS=row[ALLIGATOR_S],
-    	     #      size=row[INSPECTED_SIZE],
-           #	    idate=[INSPECTED_DATE],
-             # 		pid1=row[INSPECTED_PID1],
-				#	pid2=row[INSPECTED_PID2],
-				#	comment="IMPORTED",
-				#	potholeE=row[POTHOLE_E],
-			#		potholeS=row[POTHOLE_S],
-			#		pcidistress=row[PCI_DISTRESS],
-			#		plength=row[P_LENGTH],
-			#		pwidth=row[P_WIDTH])
-			#print(row[SURFACE_WEATHERING], row[SAMPLE_NUM], row[DISTRESS_QUANTITY])
-			#update rowsRead for each iteration
 			rowsRead=rowsRead+1
 			#write to file with the info
 			exec(open("scratchXml.py").read())
-			products.append(product)
+			
 
 print (Fore.RED + "FIRST SS IS IN 2010 - NO SET DATE \n \n")
 print(Fore.MAGENTA + str(rowsRead) + " rows read \n")			
