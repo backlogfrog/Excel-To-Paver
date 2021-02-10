@@ -142,9 +142,10 @@ rowsRead=0
 for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			rowsRead=rowsRead+1
 			#write to file with the info
-			
+			if row[SWEATHERING_CODE] > 0:
+				print ("TESTING GODDAMNIT")
 			exec(open("scratchXml.py").read())
-			
+
 
 print (Fore.RED + "FIRST SS IS IN 2010 - NO SET DATE \n \n")
 print(Fore.MAGENTA + str(rowsRead) + " rows read \n")			

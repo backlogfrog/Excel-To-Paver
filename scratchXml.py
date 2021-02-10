@@ -125,7 +125,7 @@ distressCodes = {
 distressCheck = []
 distressCheck += distressCodes.values()
 print (distressCheck)
-
+print (row[INSPECTED_PID2])
 
 
 
