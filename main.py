@@ -137,13 +137,37 @@ print(xml_header, "\n", xml_schema, sep="", file=f)
 
 #how many rows read/written
 rowsRead=0
+ticker = 0
+
+def codeCheck(code):
+	
+	try:
+		if float(code) > 0:
+			global ticker
+			ticker = 1
+	except ValueError:
+		print ("empty")
+		ticker = 0
 
 
 for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			rowsRead=rowsRead+1
 			#write to file with the info
+			codeCheck(row[SWEATHERING_CODE])
+			codeCheck(row[ALLIGATOR_CODE])
+			codeCheck(row[BLOCKCRACK_CODE])
+			codeCheck(row[TRANSVERSE__CODE])
+			codeCheck(row[DEPRESSION_CODE])
+			codeCheck(row[POTHOLE_CODE])
+			codeCheck(row[EDGECRACKING_CODE])
+			codeCheck(row[JOINTSPALLING_CODE])
+			codeCheck(row[DURABILITYCRACKING_CODE])
+			codeCheck(row[FAULTING_CODE])
+			codeCheck(row[PATCHING_CODE])
+			codeCheck(row[BUMPSAG_CODE])
+			if ticker == 1:
+				exec(open("scratchXml.py").read())
 			
-			exec(open("scratchXml.py").read())
 			
 
 print (Fore.RED + "FIRST SS IS IN 2010 - NO SET DATE \n \n")
