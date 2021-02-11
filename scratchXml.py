@@ -40,6 +40,7 @@ iS="  "
 #addressID can only be 10 characters
 address=str(row[INSPECTED_PID1]).replace(" ","")
 address=address.replace(".","")
+address=address.replace("/","")
 address=address.upper()
 #cut address to 10 char
 addressCut=address[0:10]
@@ -137,7 +138,7 @@ print (distressCheck)
 def distressPrint(code, severity, quantity):
 	try:
 		if float(code) > 0:
-			print (iS*6, "<levelDistress distressCode=\"", code, "\"", " severity=\"", severity, "\" quantity=\"", quantity, "\"", " comment=\"", DistressComment, "\" />", sep="", file=f)
+			print (iS*6, "<levelDistress distressCode=\"", code, "\"", " severity=\"", severity, "\" quantity=\"", abs(quantity), "\"", " comment=\"", DistressComment, "\" />", sep="", file=f)
 	except ValueError:
 		print ("empty")
 
@@ -148,9 +149,9 @@ distressPrint(distressCodes["alligatorC"],distressCodes["alligatorS"],distressCo
 distressPrint(distressCodes["blockcrackC"],distressCodes["blockcrackS"],distressCodes["blockcrackQ"])
 distressPrint(distressCodes["trasnverseC"],distressCodes["trasnverseS"],distressCodes["trasnverseQ"])
 distressPrint(distressCodes["depressionC"],distressCodes["depressionS"],distressCodes["depressionQ"])
+distressPrint(distressCodes["potholeC"],distressCodes["potholeS"],distressCodes["potholeQ"])
 distressPrint(distressCodes["edgecrackC"],distressCodes["edgecrackS"],distressCodes["edgecrackQ"])
 distressPrint(distressCodes["jointspallC"],distressCodes["jointspallS"],distressCodes["jointspallQ"])
-distressPrint(distressCodes["durabilityC"],distressCodes["durabilityS"],distressCodes["durabilityQ"])
 distressPrint(distressCodes["durabilityC"],distressCodes["durabilityS"],distressCodes["durabilityQ"])
 distressPrint(distressCodes["faultC"],distressCodes["faultS"],distressCodes["faultQ"])
 distressPrint(distressCodes["patchingC"],distressCodes["patchingS"],distressCodes["patchingQ"])
