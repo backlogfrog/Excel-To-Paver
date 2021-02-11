@@ -37,10 +37,13 @@ iS="  "
 
 
 #set pid without editing excel sheet to format NETWORK::STREET::PID#
+#addressID can only be 10 characters
 address=str(row[INSPECTED_PID1]).replace(" ","")
 address=address.replace(".","")
 address=address.upper()
-fullpid="WINFIELD::" + address + "::" + str(row[INSPECTED_PID2])
+#cut address to 10 char
+addressCut=address[0:10]
+fullpid="WINFIELD::" + addressCut + "::" + str(row[INSPECTED_PID2])
 
 
 
