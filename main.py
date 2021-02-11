@@ -145,15 +145,17 @@ def codeCheck(code):
 		if float(code) > 0:
 			global ticker
 			ticker = 1
+			print(row[INSPECTED_PID2])
 	except ValueError:
 		print ("empty")
+		print(row[INSPECTED_PID2])
 		ticker = 0
 
 
 for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			rowsRead=rowsRead+1
-			#write to file with the info
-			codeCheck(row[SWEATHERING_CODE])
+			#iteration check through a dictionary/list wasn't fucking working, so as a "temp" fix, a function check to force float actually worked instead of type errors for >
+			codeCheck(row[SWEATHERING_CODE])	 	
 			codeCheck(row[ALLIGATOR_CODE])
 			codeCheck(row[BLOCKCRACK_CODE])
 			codeCheck(row[TRANSVERSE__CODE])
