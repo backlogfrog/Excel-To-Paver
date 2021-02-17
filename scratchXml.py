@@ -118,9 +118,10 @@ distressCodes = {
 	'bumpsagQ': row[BUMPSAG_Q]
 }
 
+#used for checking data as we run through
 distressCheck = []
 distressCheck += distressCodes.values()
-print (distressCheck)
+#print (distressCheck)
 
 
 
@@ -131,8 +132,9 @@ def distressPrint(code, severity, quantity):
 	try:
 		if float(code) > 0:
 			print (iS*6, "<levelDistress distressCode=\"", code, "\"", " severity=\"", severity, "\" quantity=\"", abs(quantity), "\"", " comment=\"", DistressComment, "\" />", sep="", file=f)
+			print("Data: ", row[INSPECTED_PID2], file=logFile)
 	except ValueError:
-		print ("empty")
+		print ("Empty: ", row[INSPECTED_PID2], file=logFile)
 
 
 #forced to run function individually with each var unfortunately: iterating through the dict/list was not working, int/str issues with ">"
@@ -166,3 +168,6 @@ print (iS*4, "<levelCondition comment=\"\" source=\"\" cndMeasureUID=\"StructPCI
 print (iS*3, "</conditions>", sep="", file=f)
 print (iS*2, "</inspectedConditions>", sep="", file=f)
 print (iS, "</geospatialInspectionData>", sep="", file=f)
+
+
+#end

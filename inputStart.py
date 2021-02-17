@@ -15,3 +15,4 @@ if os.path.exists(fileName+".xml"):
 else:
   print(Style.DIM + Fore.BLUE +"New file created \n \n")
 f = open(fileName + ".xml", "a+")
+logFile = open(fileName + ".log", "a+")

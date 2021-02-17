@@ -1,19 +1,13 @@
 #extract data from a spreadsheet and convert to Paver XML data for import
 
-#finding files by extension in main dir/opening files
+#finding files by extension in main dir/opening files, exec .py files
 import os
 import glob
 
 #needed to parse date in scratchXml.py
 from datetime import datetime
 
-#needed  run another .py file, unneeded at this time 11.18.20
-#from subprocess import Popen
-
-#probably unneeded at this time 11.18.20
-#import json
-
-#colored text for funskies
+#colored text for funskies while I wait for data
 import colorama
 from colorama import Fore, Back, Style 
 colorama.init()
@@ -28,7 +22,7 @@ colorama.init(autoreset=True)
 #openpyxl package opens excel sheets
 from openpyxl import load_workbook
 
-#NEW DATA HAS NO DATE - ANY DATE IN 2010 is first date
+#NEW DATA HAS NO DATE - NEED TO SET DATE
 
 ##################################################################################
 ##################################################################################
@@ -88,6 +82,8 @@ sheet = workbook.active
 #LastRow=sheet.max_row
 #LastColumn=sheet.max_column
 #print ("Last Column ", LastColumn)
+
+#something is fucky here, last row shows is greater than 
 LastRow=sheet.max_row-RowIncr
 print("Total row number is ", LastRow)
 
@@ -146,19 +142,22 @@ def codeCheck(code):
 		if float(code) > 0:
 			global ticker
 			ticker = 1
-			print(row[INSPECTED_PID2])
+			#print(row[INSPECTED_PID2])
 	except ValueError:
-		print ("empty")
-		print(row[INSPECTED_PID2])
+		#print ("empty")
+		#print(row[INSPECTED_PID2])
 		ticker = 0
 
+#TESTING for specific errors in specific PID import
 
-
+#PIDREQUEST = input("Enter your PID for PID specific xml: ") 
+#print("PID: ", PIDREQUEST) 
+#for if statement below: if ticker == 1 and row[INSPECTED_PID2] == int(PIDREQUEST)
 
 
 for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			rowsRead=rowsRead+1
-			#iteration check through a dictionary/list wasn't fucking working, so as a "temp" fix, a function check to force float actually worked instead of type errors for >
+			#iteration check through a dictionary/list wasn't fucking working, so as a "temp" (perm) fix, a function check to force float actually worked instead of type errors for ">""
 			ticker = 0
 			codeCheck(row[SWEATHERING_CODE])	 	
 			codeCheck(row[ALLIGATOR_CODE])
@@ -174,33 +173,13 @@ for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			codeCheck(row[BUMPSAG_CODE])
 			#write data to xml if the code is actually greater than 0
 			if ticker == 1:
-				exec(open("scratchXml.py").read())
-
-
-for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
-			rowsRead=rowsRead+1
-			#iteration check through a dictionary/list wasn't fucking working, so as a "temp" fix, a function check to force float actually worked instead of type errors for >
-			ticker = 0
-			codeCheck(row[SWEATHERING_CODE])	 	
-			codeCheck(row[ALLIGATOR_CODE])
-			codeCheck(row[BLOCKCRACK_CODE])
-			codeCheck(row[TRANSVERSE__CODE])
-			codeCheck(row[DEPRESSION_CODE])
-			codeCheck(row[POTHOLE_CODE])
-			codeCheck(row[EDGECRACKING_CODE])
-			codeCheck(row[JOINTSPALLING_CODE])
-			codeCheck(row[DURABILITYCRACKING_CODE])
-			codeCheck(row[FAULTING_CODE])
-			codeCheck(row[PATCHING_CODE])
-			codeCheck(row[BUMPSAG_CODE])
-			#write data to xml if the code is actually greater than 0
-			if ticker == 1:
+				#print("PIDREQUEST")
 				exec(open("scratchXml.py").read())
 			
 			
 
 print (Fore.RED + "FIRST SS IS IN 2010 - NO SET DATE \n \n")
-print(Fore.MAGENTA + str(rowsRead) + " rows read \n")			
+print(Fore.MAGENTA, int(rowsRead)-1, " rows read \n")			
 #close xml main tag and workbook
 print("</pavementData>", sep="", file=f)
 f.close()
