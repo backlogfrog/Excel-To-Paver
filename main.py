@@ -47,7 +47,7 @@ RowIncr=2
 
 #import class info from inspectionClasses.py for inspection data and from mapping.py based on column to be printed to XML
 from inspectionClasses import Inspections
-from mapping import INSPECTED_SIZE, INSPECTED_DATE, INSPECTED_PID1, INSPECTED_PID2, DCOMMENT, P_LENGTH, P_WIDTH, SAMPLENUMBER, SWEATHERING_CODE, SWEATHERING_S, SWEATHERING_Q, ALLIGATOR_CODE, ALLIGATOR_S, ALLIGATOR_Q, BLOCKCRACK_CODE, BLOCKCRACK_S, BLOCKCRACK_Q, TRANSVERSE__CODE, TRANSVERSE_S, TRANSVERSE_Q, DEPRESSION_CODE, DEPRESSION_S, DEPRESSION_Q, POTHOLE_CODE, POTHOLE_S, POTHOLE_Q, EDGECRACKING_CODE, EDGECRACKING_S, EDGECRACKING_Q, JOINTSPALLING_CODE, JOINTSPALLING_S, JOINTSPALLING_Q, DURABILITYCRACKING_CODE, DURABILITYCRACKING_S, DURABILITYCRACKING_Q, FAULTING_CODE, FAULTING_S, FAULTING_Q, PATCHING_CODE, PATCHING_S, PATCHING_Q, BUMPSAG_CODE, BUMPSAG_S, BUMPSAG_Q
+from mapping import INSPECTED_SIZE, INSPECTED_DATE, INSPECTED_PID1, INSPECTED_PID2, DCOMMENT, P_LENGTH, P_WIDTH, SAMPLENUMBER, SWEATHERING_CODE, SWEATHERING_S, SWEATHERING_Q, ALLIGATOR_CODE, ALLIGATOR_S, ALLIGATOR_Q, BLOCKCRACK_CODE, BLOCKCRACK_S, BLOCKCRACK_Q, TRANSVERSE__CODE, TRANSVERSE_S, TRANSVERSE_Q, DEPRESSION_CODE, DEPRESSION_S, DEPRESSION_Q, POTHOLE_CODE, POTHOLE_S, POTHOLE_Q, EDGECRACKING_CODE, EDGECRACKING_S, EDGECRACKING_Q, JOINTSPALLING_CODE, JOINTSPALLING_S, JOINTSPALLING_Q, DURABILITYCRACKING_CODE, DURABILITYCRACKING_S, DURABILITYCRACKING_Q, FAULTING_CODE, FAULTING_S, FAULTING_Q, PATCHING_CODE, PATCHING_S, PATCHING_Q, BUMPSAG_CODE, BUMPSAG_S, BUMPSAG_Q, SAMPLESIZE
 
 #set header/schema for xml
 xml_header = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>"
@@ -92,7 +92,7 @@ LastRow=sheet.max_row-RowIncr
 print("Total row number is ", LastRow)
 
 #request user input to determine how many records are wanted, keep within range of data
-#based on the LastRow
+#based on the LastRow, number is off by 1, but it works at this time
 while True:
     number = input(Fore.CYAN + "How many rows? ")
     try:
@@ -139,6 +139,7 @@ print(xml_header, "\n", xml_schema, sep="", file=f)
 rowsRead=0
 ticker = 0
 
+#check each code to ensure there is a distress for this row, set ticker to 1 to write
 def codeCheck(code):
 	
 	try:
@@ -150,6 +151,9 @@ def codeCheck(code):
 		print ("empty")
 		print(row[INSPECTED_PID2])
 		ticker = 0
+
+
+
 
 
 for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
@@ -168,6 +172,28 @@ for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			codeCheck(row[FAULTING_CODE])
 			codeCheck(row[PATCHING_CODE])
 			codeCheck(row[BUMPSAG_CODE])
+			#write data to xml if the code is actually greater than 0
+			if ticker == 1:
+				exec(open("scratchXml.py").read())
+
+
+for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
+			rowsRead=rowsRead+1
+			#iteration check through a dictionary/list wasn't fucking working, so as a "temp" fix, a function check to force float actually worked instead of type errors for >
+			ticker = 0
+			codeCheck(row[SWEATHERING_CODE])	 	
+			codeCheck(row[ALLIGATOR_CODE])
+			codeCheck(row[BLOCKCRACK_CODE])
+			codeCheck(row[TRANSVERSE__CODE])
+			codeCheck(row[DEPRESSION_CODE])
+			codeCheck(row[POTHOLE_CODE])
+			codeCheck(row[EDGECRACKING_CODE])
+			codeCheck(row[JOINTSPALLING_CODE])
+			codeCheck(row[DURABILITYCRACKING_CODE])
+			codeCheck(row[FAULTING_CODE])
+			codeCheck(row[PATCHING_CODE])
+			codeCheck(row[BUMPSAG_CODE])
+			#write data to xml if the code is actually greater than 0
 			if ticker == 1:
 				exec(open("scratchXml.py").read())
 			

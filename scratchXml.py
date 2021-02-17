@@ -4,7 +4,7 @@
 DistressComment = "Imported"
 #row[INSPECTED_SIZE]-- set actual square footage - excel sheet has different size
 #inspectedSize=row[P_LENGTH]*row[P_WIDTH]
-inspectedSize = 12
+inspectedSize = row[SAMPLESIZE]
 #PCI condition, doesn't import
 condition=1
 
@@ -12,17 +12,18 @@ condition=1
 #
 #check the severity of the distress and give Low Medium or High value
 #will probably need changing/uneccessary with new data. 
-def severityConvert(rowDataHere):
-	severityReal = "NONE"
-	if rowDataHere == 1:
-		severityReal = "L"
-	elif rowDataHere == 2:
-		severityReal = "M"
-	elif rowDataHere == 3:
-		severityReal = "H"
-	print("severityConvert Testing", severityReal)
-	return severityReal
-
+#not needed as of 2.17.20 - severity pulled from excel
+#def severityConvert(rowDataHere):
+#	severityReal = "NONE"
+#	if rowDataHere == 1:
+#		severityReal = "L"
+#	elif rowDataHere == 2:
+#		severityReal = "M"
+#	elif rowDataHere == 3:
+#		severityReal = "H"
+#	print("severityConvert Testing", severityReal)
+#	return severityReal
+#spaces for XML indention since YATTAG isn't working
 iS="  "
 #unneeded @ this time, current sheet has L M H
 ######CALL severityConvert TO CONVERT # to L M H
@@ -64,7 +65,8 @@ dateSet="01/01/2010"
 #manually write XML data to filename.xml
 #Changed comment to say Imp: for imported to identify
 
-
+#removed size, unneeded at this time
+#
 
 print(iS, "<geospatialInspectionData inspectionDate=\"",dateSet,"\"", " units=\"English\" level=\"SAMPLE\" >", sep="", file=f)
 print(iS*2, "<inspectedElement inspectedElementID=\"", row[SAMPLENUMBER], "\"", " size=\"", inspectedSize, "\" ", "PID=\"", fullpid, "\" inspectedType=\"R\" comment=\"",DistressComment,  "\" noDistresses=\"false\">",  sep="", file=f)
@@ -74,19 +76,9 @@ print(iS*2, "<inspectedElement inspectedElementID=\"", row[SAMPLENUMBER], "\"", 
 print (iS*3, "<inspectionData>", sep="", file=f)
 
 #E = extent, S = severity, unsure how to assign which to which at this point 11.09.20
-# some streets have extent > 1 but severity is 0, the MKE  folder does not show an example of this, so I'm not sure what it means, may have to use AC_CL, the calculated score somehow as the severity
 
 
-
-##alligator cracking
-#check if severity is L,M,H (1,2,3) and write that data
-#later: need to check ad or statements for all distresses?
-
-
-
-
-
-#Set distress codes to dict, check to see if codes are > 0, then write
+#Set distress codes to dict, check to see if ANY codes are > 0, then write
 distressCodes = {
 	'sweatherC': row[SWEATHERING_CODE],
 	'sweatherS': row[SWEATHERING_S],
@@ -143,6 +135,7 @@ def distressPrint(code, severity, quantity):
 		print ("empty")
 
 
+#forced to run function individually with each var unfortunately: iterating through the dict/list was not working, int/str issues with ">"
 print (iS*5, "<PCIDistresses>", sep="", file=f)
 distressPrint(distressCodes["sweatherC"],distressCodes["sweatherS"],distressCodes["sweatherQ"])
 distressPrint(distressCodes["alligatorC"],distressCodes["alligatorS"],distressCodes["alligatorQ"])
@@ -165,10 +158,7 @@ print (iS*3, "</inspectionData>", sep="", file=f)
 print(iS*2, "</inspectedElement>", sep="", file=f)
 print(iS, "</geospatialInspectionData>", sep="", file=f)
 
-
-#possibly unneeded, Paver seems to calculate simply based on distresses.
-#unpaved roads will show PQI of "0," rating the road failed
-
+#generic "inspection info," seems to be needed for each inspection despite appearance of duplicate information. 
 print (iS, "<geospatialInspectionData level=\"SECTION\" units=\"English\" inspectionDate=\"", dateSet, "\" >", sep="", file=f)
 print (iS*2, "<inspectedConditions PID=\"", fullpid, "\" >", sep="", file=f)
 print (iS*3, "<conditions>", sep="", file=f)
@@ -176,11 +166,3 @@ print (iS*4, "<levelCondition comment=\"\" source=\"\" cndMeasureUID=\"StructPCI
 print (iS*3, "</conditions>", sep="", file=f)
 print (iS*2, "</inspectedConditions>", sep="", file=f)
 print (iS, "</geospatialInspectionData>", sep="", file=f)
-
-#close the exec sheet
-
-
-
-
-
-#may need to check if PCI_DIESTRESS is > than 0 before printing anythingaaaa
