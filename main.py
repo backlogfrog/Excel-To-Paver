@@ -142,10 +142,14 @@ def codeCheck(code):
 		if float(code) > 0:
 			global ticker
 			ticker = 1
+			print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER], file=logFile)
+			print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER])
 			#print(row[INSPECTED_PID2])
 	except ValueError:
 		#print ("empty")
 		#print(row[INSPECTED_PID2])
+		print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], file=logFile)
+		print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], " ###################")
 		ticker = 0
 
 #TESTING for specific errors in specific PID import
@@ -183,3 +187,4 @@ print(Fore.MAGENTA, int(rowsRead)-1, " rows read \n")
 #close xml main tag and workbook
 print("</pavementData>", sep="", file=f)
 f.close()
+logFile.close()
