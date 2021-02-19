@@ -7,7 +7,7 @@
 #Size REQUIRED for accurate PCI#
 INSPECTED_SIZE=3
 #no set date at this time
-INSPECTED_DATE=17
+INSPECTED_DATE=41
 #Name which will be truncated ex: CS Smith Rd. to CSSSmithRd in scratchXML
 INSPECTED_PID1=2
 INSPECTED_PID2=0

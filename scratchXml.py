@@ -56,7 +56,7 @@ fullpid="WINFIELD::" + addressCut + "::" + str(row[INSPECTED_PID2])
 
 #temporary date needed due to date change and not present in excel
 #or set dateSet=parsed_date to pull a proper parsed date from spreadsheet
-dateSet="01/01/2010"
+dateSet=str(row[INSPECTED_DATE])
 
 
 #print(xml_header, "\n", xml_schema, "\n", file=f) and opening xml tags
@@ -79,6 +79,8 @@ print (iS*3, "<inspectionData>", sep="", file=f)
 
 
 #Set distress codes to dict, check to see if ANY codes are > 0, then write
+#iterating through isn't working...
+#unneeded at this time, but I don't have to ty[e ro[blahblah] everytime, so...
 distressCodes = {
 	'sweatherC': row[SWEATHERING_CODE],
 	'sweatherS': row[SWEATHERING_S],
@@ -132,11 +134,9 @@ def distressPrint(code, severity, quantity):
 	try:
 		if float(code) > 0:
 			print (iS*6, "<levelDistress distressCode=\"", code, "\"", " severity=\"", severity, "\" quantity=\"", abs(quantity), "\"", " comment=\"", DistressComment, "\" />", sep="", file=f)
-			print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER], file=logFile)
-			print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER])
+			fullData()
 	except ValueError:
-		print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], file=logFile)
-		print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], " ###################")
+		emptyData()
 
 
 #forced to run function individually with each var unfortunately: iterating through the dict/list was not working, int/str issues with ">"

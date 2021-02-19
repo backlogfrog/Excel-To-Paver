@@ -40,7 +40,7 @@ RowIncr=2
 
 
 #import class info from inspectionClasses.py for inspection data and from mapping.py based on column to be printed to XML
-from inspectionClasses import Inspections
+
 from mapping import INSPECTED_SIZE, INSPECTED_DATE, INSPECTED_PID1, INSPECTED_PID2, DCOMMENT, P_LENGTH, P_WIDTH, SAMPLENUMBER, SWEATHERING_CODE, SWEATHERING_S, SWEATHERING_Q, ALLIGATOR_CODE, ALLIGATOR_S, ALLIGATOR_Q, BLOCKCRACK_CODE, BLOCKCRACK_S, BLOCKCRACK_Q, TRANSVERSE__CODE, TRANSVERSE_S, TRANSVERSE_Q, DEPRESSION_CODE, DEPRESSION_S, DEPRESSION_Q, POTHOLE_CODE, POTHOLE_S, POTHOLE_Q, EDGECRACKING_CODE, EDGECRACKING_S, EDGECRACKING_Q, JOINTSPALLING_CODE, JOINTSPALLING_S, JOINTSPALLING_Q, DURABILITYCRACKING_CODE, DURABILITYCRACKING_S, DURABILITYCRACKING_Q, FAULTING_CODE, FAULTING_S, FAULTING_Q, PATCHING_CODE, PATCHING_S, PATCHING_Q, BUMPSAG_CODE, BUMPSAG_S, BUMPSAG_Q, SAMPLESIZE
 
 #set header/schema for xml
@@ -135,6 +135,14 @@ print(xml_header, "\n", xml_schema, sep="", file=f)
 rowsRead=0
 ticker = 0
 
+def emptyData():
+	print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], " ###################", file=logFile)
+	print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], " ###################")
+
+def fullData():
+		print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER], file=logFile)
+		print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER])
+
 #check each code to ensure there is a distress for this row, set ticker to 1 to write
 def codeCheck(code):
 	
@@ -142,14 +150,15 @@ def codeCheck(code):
 		if float(code) > 0:
 			global ticker
 			ticker = 1
-			print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER], file=logFile)
-			print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER])
+			fullData()
 			#print(row[INSPECTED_PID2])
+		else:
+			emptyData()
+			
 	except ValueError:
 		#print ("empty")
 		#print(row[INSPECTED_PID2])
-		print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], file=logFile)
-		print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], " ###################")
+		emptyData()
 		ticker = 0
 
 #TESTING for specific errors in specific PID import
