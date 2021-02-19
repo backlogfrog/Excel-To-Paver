@@ -78,36 +78,43 @@ workbook = load_workbook(filename=db_name, data_only=True)
 workbook.sheetnames
 sheet = workbook.active
 
+
 #set/show last row and column to avoid out of range error
 #LastRow=sheet.max_row
 #LastColumn=sheet.max_column
 #print ("Last Column ", LastColumn)
 
+
 #something is fucky here, last row shows is greater than 
 LastRow=sheet.max_row-RowIncr
 print("Total row number is ", LastRow)
 
+
+########################################## - unwanted as of 2.19.20 - commented out just auto pulls all rows
 #request user input to determine how many records are wanted, keep within range of data
 #based on the LastRow, number is off by 1, but it works at this time
-while True:
-    number = input(Fore.CYAN + "How many rows? ")
-    try:
-        number = int(number)
-    except ValueError:
-        print(Fore.BLUE + number, 'is not a number, try again.')
-        continue
-    if number <= 0:
-        print("    ")
-        print(Fore.BLUE + "Too low, try again.")
-    elif number > LastRow:
-        print("    ")
-        print(Fore.BLUE + "Too high, try again.")
-    else:
-        print("    ")
-        break
-
+#while True:
+#    number = input(Fore.CYAN + "How many rows? ")
+#    try:
+#        number = int(number)
+#    except ValueError:
+#        print(Fore.BLUE + number, 'is not a number, try again.')
+#        continue
+#    if number <= 0:
+#        print("    ")
+#        print(Fore.BLUE + "Too low, try again.")
+#    elif number > LastRow:
+#        print("    ")
+#        print(Fore.BLUE + "Too high, try again.")
+#    else:
+#        print("    ")
+#        break
 #set row input to final row read
-LastRow=number
+#LastRow=number
+##########################################################################
+
+
+
 
 #LastRow = Copy of 2012.xlsx 685 readable lines
 #2012.xlsx has 686 readable lines
@@ -126,7 +133,20 @@ else:
 
 
 #request filename for output
-exec(open("inputStart.py").read())
+
+if os.path.exists(db_name+".xml"):
+  os.remove(db_name+".xml")
+  os.remove(db_name+".log")
+  print(Style.DIM + Fore.RED +"Original File Deleted \n \n")
+else:
+  print(Style.DIM + Fore.BLUE +"New file created \n \n")
+f = open(db_name + ".xml", "a+")
+logFile = open(db_name + ".log", "a+")
+
+
+
+
+
 
 #add headers to top of page
 print(xml_header, "\n", xml_schema, sep="", file=f)

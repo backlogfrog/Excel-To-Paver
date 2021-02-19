@@ -51,12 +51,12 @@ fullpid="WINFIELD::" + addressCut + "::" + str(row[INSPECTED_PID2])
 
 #set date to proper format
 
-#spread_date = row[INSPECTED_DATE]
-#parsed_date = datetime.strftime(spread_date, "%m/%d/%Y")
+spread_date = row[INSPECTED_DATE]
+parsed_date = datetime.strftime(spread_date, "%m/%d/%Y")
 
 #temporary date needed due to date change and not present in excel
 #or set dateSet=parsed_date to pull a proper parsed date from spreadsheet
-dateSet=str(row[INSPECTED_DATE])
+dateSet=parsed_date
 
 
 #print(xml_header, "\n", xml_schema, "\n", file=f) and opening xml tags
