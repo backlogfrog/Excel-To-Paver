@@ -90,7 +90,7 @@ LastRow=sheet.max_row-RowIncr
 print("Total row number is ", LastRow)
 
 
-########################################## - unwanted as of 2.19.20 - commented out just auto pulls all rows
+########################################## - unwanted as of 2.19.20 - commented out just auto pulls all rows, no longer needed for debugging
 #request user input to determine how many records are wanted, keep within range of data
 #based on the LastRow, number is off by 1, but it works at this time
 #while True:
@@ -124,7 +124,7 @@ FinalRow = sheet.max_row
 #to avoid empty data/date error
 #else, add LastRow to RowIncr(sheet actual-data-start offset)
 
-#WILL NEED TO DETERMINE IF FURTHER ROWS ARE BLANK/0 AND SUBTRACT FURTHER
+#DETERMINE IF FURTHER ROWS ARE BLANK/0 AND stop pulling data, im not sure how this works currently 2.19.20
 cellCheck=sheet.cell(row=FinalRow, column=1).value
 if cellCheck == 0:
 	LastRow=LastRow+RowIncr-1
@@ -132,16 +132,23 @@ else:
 	LastRow=LastRow+RowIncr
 
 
+#set filename for output and log based on EXCEL name
 #request filename for output
+#no longer needed for debugging/etc 2.19.20
+#exec(open("inputStart.py").read())
 
-if os.path.exists(db_name+".xml"):
-  os.remove(db_name+".xml")
-  os.remove(db_name+".log")
+#cut filename of .xml/.log file to 4 char
+fileName=db_name[0:4]
+
+#write files/delete if present
+if os.path.exists(fileName+".xml"):
+  os.remove(fileName+".xml")
+  os.remove(fileName+".log")
   print(Style.DIM + Fore.RED +"Original File Deleted \n \n")
 else:
   print(Style.DIM + Fore.BLUE +"New file created \n \n")
-f = open(db_name + ".xml", "a+")
-logFile = open(db_name + ".log", "a+")
+f = open(fileName + ".xml", "a+")
+logFile = open(fileName + ".log", "a+")
 
 
 
@@ -182,7 +189,6 @@ def codeCheck(code):
 		ticker = 0
 
 #TESTING for specific errors in specific PID import
-
 #PIDREQUEST = input("Enter your PID for PID specific xml: ") 
 #print("PID: ", PIDREQUEST) 
 #for if statement below: if ticker == 1 and row[INSPECTED_PID2] == int(PIDREQUEST)
@@ -211,9 +217,13 @@ for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			
 			
 
-print (Fore.RED + "FIRST SS IS IN 2010 - NO SET DATE \n \n")
-print(Fore.MAGENTA, int(rowsRead)-1, " rows read \n")			
+#print (Fore.RED + "FIRST SS IS IN 2010 - NO SET DATE \n \n")
+	
 #close xml main tag and workbook
 print("</pavementData>", sep="", file=f)
 f.close()
 logFile.close()
+
+#print rows and files read
+print(Fore.MAGENTA + "\nRows Read: ", int(rowsRead)-1)		
+print(Fore.MAGENTA + "File Opened:", db_name)
