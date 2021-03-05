@@ -4,6 +4,11 @@
 import os
 import glob
 
+#justprogressbarthings
+from alive_progress import alive_bar
+#from progress.bar import Bar
+
+
 #needed to parse date in scratchXml.py
 from datetime import datetime
 
@@ -140,15 +145,23 @@ else:
 #cut filename of .xml/.log file to 4 char
 fileName=db_name[0:4]
 
+#create folders for xml and log files
+if not os.path.exists('XML'):
+    os.makedirs('XML')
+
+if not os.path.exists('LOG'):
+    os.makedirs('LOG')
+
 #write files/delete if present
-if os.path.exists(fileName+".xml"):
-  os.remove(fileName+".xml")
-  os.remove(fileName+".log")
-  print(Style.DIM + Fore.RED +"Original File Deleted \n \n")
+if os.path.exists("XML/"+fileName+".xml"):
+  os.remove("XML/"+fileName+".xml")
+if os.path.exists("LOG/"+fileName+".log"):
+  os.remove("LOG/"+fileName+".log")
+  print(Style.DIM + Fore.RED +"Original XML/LOG Deleted \n \n")
 else:
   print(Style.DIM + Fore.BLUE +"New file created \n \n")
-f = open(fileName + ".xml", "a+")
-logFile = open(fileName + ".log", "a+")
+f = open("XML/"+fileName + ".xml", "a+")
+logFile = open("LOG/"+fileName + ".log", "a+")
 
 
 
@@ -164,11 +177,11 @@ ticker = 0
 
 def emptyData():
 	print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], " ###################", file=logFile)
-	print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], " ###################")
+	#print ("Empty: ", row[INSPECTED_PID2],":", row[SAMPLENUMBER], " ###################")
 
 def fullData():
 		print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER], file=logFile)
-		print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER])
+		#print("Data: ", row[INSPECTED_PID2], ":", row[SAMPLENUMBER])
 
 #check each code to ensure there is a distress for this row, set ticker to 1 to write
 def codeCheck(code):
@@ -178,13 +191,13 @@ def codeCheck(code):
 			global ticker
 			ticker = 1
 			fullData()
-			#print(row[INSPECTED_PID2])
+			
 		else:
 			emptyData()
 			
 	except ValueError:
-		#print ("empty")
-		#print(row[INSPECTED_PID2])
+		
+		
 		emptyData()
 		ticker = 0
 
@@ -194,9 +207,15 @@ def codeCheck(code):
 #for if statement below: if ticker == 1 and row[INSPECTED_PID2] == int(PIDREQUEST)
 
 
-for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
+
+
+        
+
+
+
+with alive_bar(LastRow, bar = 'bubbles', spinner = 'notes2') as bar:
+	for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			rowsRead=rowsRead+1
-			#iteration check through a dictionary/list wasn't fucking working, so as a "temp" (perm) fix, a function check to force float actually worked instead of type errors for ">""
 			ticker = 0
 			codeCheck(row[SWEATHERING_CODE])	 	
 			codeCheck(row[ALLIGATOR_CODE])
@@ -210,12 +229,13 @@ for row in sheet.iter_rows(min_row=RowIncr, max_row=LastRow, values_only=True):
 			codeCheck(row[FAULTING_CODE])
 			codeCheck(row[PATCHING_CODE])
 			codeCheck(row[BUMPSAG_CODE])
-			#write data to xml if the code is actually greater than 0
 			if ticker == 1:
-				#print("PIDREQUEST")
 				exec(open("scratchXml.py").read())
+			bar()
+			#bar.next()
 			
-			
+
+
 
 #print (Fore.RED + "FIRST SS IS IN 2010 - NO SET DATE \n \n")
 	
@@ -227,3 +247,4 @@ logFile.close()
 #print rows and files read
 print(Fore.MAGENTA + "\nRows Read: ", int(rowsRead)-1)		
 print(Fore.MAGENTA + "File Opened:", db_name)
+print(Fore.MAGENTA + "Files Written:", fileName+".xml"+", "+fileName+".log")
